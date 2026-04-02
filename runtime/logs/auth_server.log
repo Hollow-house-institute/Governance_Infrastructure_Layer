@@ -1,0 +1,5 @@
+nohup: ignoring input
+  File "/data/data/com.termux/files/home/Governance_Infrastructure_Layer/governance_server.py", line 179
+    self.send_header("self.send_header("Set-Cookie", f"{SESSION}={token}; Path=/; HttpOnly; SameSite=Lax")
+                                                                                                        ^
+SyntaxError: unterminated string literal (detected at line 179)

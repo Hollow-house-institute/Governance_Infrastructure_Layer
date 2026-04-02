@@ -68,3 +68,15 @@ Stored for audit replay.
 - Escalation Path:
   - system → human → audit review
 
+
+## Accountability (Bound)
+
+- System Owner: Hollow House Institute
+- Audit Authority: HHI-GOV-01
+- Escalation Triggers:
+  - Missing governance sections
+  - Telemetry generation failure
+  - Checksum drift detected
+
+- Escalation Path:
+  - system → human → audit review (non-bypassable)

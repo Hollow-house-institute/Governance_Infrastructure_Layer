@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HHI Governance Dashboard</title>
+ <style>
+  body {
+    font-family: Arial;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #38bdf8;
+  }
+
+  .card {
+    background: #1e293b;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+  .alert {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body data-role="admin">
+
+<h1>HHI Governance Dashboard</h1>
+<div id="alert"></div>
+
+<div class="card">
+  <h3>System Health</h3>
+  <h2 id="health">--</h2>
+</div>
+
+<div class="card">
+  <h3>Drift</h3>
+  <pre id="drift"></pre>
+</div>
+
+<div class="card">
+  <h3>Escalation</h3>
+  <pre id="escalation"></pre>
+</div>
+
+<div class="card">
+  <h3>Last Audit</h3>
+  <pre id="audit"></pre>
+</div>
+
+<div class="card">
+  <h3>Audit Log (recent)</h3>
+  <pre id="auditlog" style="white-space:pre-wrap; font-size:12px;"></pre>
+</div>
+  <pre id="audit"></pre>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const sid = params.get("sid");
+
+async function loadData() {
+  try {
+    const drift = await fetch(`/runtime/drift/drift.json?sid=${sid}`).then(r=>r.json());
+    const escalation = await fetch(`/runtime/escalation/escalation.json?sid=${sid}`).then(r=>r.json());
+    const audit = await fetch(`/audits/latest.txt?sid=${sid}`).then(r=>r.text());
+
+    document.getElementById("drift").innerText = JSON.stringify(drift, null, 2);
+    document.getElementById("escalation").innerText = JSON.stringify(escalation, null, 2);
+    document.getElementById("audit").innerText = audit;
+
+    let health = drift.count === 0 ? "100%" : "0%";
+    document.getElementById("health").innerText = health;
+
+    if (drift.count > 0) {
+      document.getElementById("alert").innerHTML =
+        '<div class="alert" style="background:#ef4444">CRITICAL: Drift detected</div>';
+    } else {
+      document.getElementById("alert").innerHTML =
+        '<div class="alert" style="background:#22c55e">System Stable</div>';
+    }
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+loadData();
+setInterval(loadData, 5000);
+</script>
+</body>
+</html>
