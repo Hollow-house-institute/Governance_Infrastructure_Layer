@@ -96,3 +96,19 @@ setInterval(loadData, 5000);
 </script>
 </body>
 </html>
+
+<script>
+async function loadTrace() {
+  const logs = await fetch('/runtime/logs/auth.log').then(r => r.text()).catch(()=> "no logs");
+  const esc = await fetch('/runtime/escalation/escalation.json').then(r => r.text()).catch(()=> "no escalation");
+  document.getElementById("trace").innerText =
+    "=== Interaction Trace ===\n" + logs + "\n\n=== Escalation ===\n" + esc;
+}
+loadTrace();
+</script>
+
+<div class="card">
+  <h3>Interaction Trace</h3>
+  <pre id="trace"></pre>
+</div>
+

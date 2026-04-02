@@ -80,3 +80,10 @@ Stored for audit replay.
 
 - Escalation Path:
   - system → human → audit review (non-bypassable)
+
+## Intervention Threshold
+
+- Drift > 0 → Escalation (mandatory)
+- Failures ≥ 2 → Stop Authority (system halt)
+- Missing telemetry → Governance Failure (CI fail)
+
