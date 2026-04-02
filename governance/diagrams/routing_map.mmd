@@ -1,0 +1,7 @@
+flowchart LR
+  TELEMETRY[Telemetry] --> EVIDENCE[Evidence]
+  EVIDENCE --> DRIFT[Drift Signals]
+  DRIFT --> ESCALATION[Escalation Surface]
+  EVIDENCE --> ASSURANCE[Assurance Cycles]
+  ASSURANCE --> REPORTS[Governance Reports]
+  HEALTH[Health Score] --> DASHBOARD[Dashboard]
