@@ -1,0 +1,36 @@
+name: Governance Runtime
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  runtime-governance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup runtime dirs
+        run: |
+          mkdir -p runtime/logs runtime/drift runtime/escalation telemetry
+
+      - name: Run Telemetry Generator
+        run: |
+          bash governance/telemetry/generate_metrics.sh
+
+      - name: Run Threshold Enforcement
+        run: |
+          bash governance/enforcement/thresholds.sh
+
+      - name: Upload Telemetry Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-telemetry
+          path: telemetry/
+
+      - name: Upload Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-logs
+          path: runtime/logs/
