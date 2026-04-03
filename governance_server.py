@@ -223,3 +223,66 @@ def handle_escalation(handler):
     if not require_role(handler, ["audit"]): return
     handler.serve_file("runtime/escalation/escalation.json")
 
+
+# --- JWT AUTH + EXPIRY + AUDIT BINDING ---
+import jwt, datetime, json
+
+SECRET_KEY = "CHANGE_THIS_SECRET"  # replace with secure value
+
+def generate_token(user):
+    payload = {
+        "user": user,
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+    }
+    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+
+def verify_token(handler):
+    token = handler.headers.get("Authorization")
+    if not token:
+        return None
+    try:
+        decoded = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        return decoded["user"]
+    except jwt.ExpiredSignatureError:
+        return None
+    except Exception:
+        return None
+
+def audit_log(handler, user, action):
+    entry = {
+        "time": datetime.datetime.utcnow().isoformat(),
+        "user": user,
+        "action": action,
+        "path": handler.path,
+        "ip": handler.client_address[0]
+    }
+    with open("runtime/logs/audit.log", "a") as f:
+        f.write(json.dumps(entry) + "\n")
+
+def require_jwt(handler, allowed_roles, action):
+    user = verify_token(handler)
+    role = USER_ROLES.get(user)
+
+    if user is None or role not in allowed_roles:
+        handler.send_response(401)
+        handler.end_headers()
+        handler.wfile.write(b"Unauthorized")
+        return None
+
+    audit_log(handler, user, action)
+    return user
+
+# --- EXAMPLE PROTECTED ENDPOINTS ---
+
+def handle_metrics(handler):
+    if not require_jwt(handler, ["cfo","cto","audit"], "view_metrics"): return
+    handler.serve_file("telemetry/metrics.log")
+
+def handle_logs(handler):
+    if not require_jwt(handler, ["cto","audit"], "view_logs"): return
+    handler.serve_file("runtime/logs/auth.log")
+
+def handle_escalation(handler):
+    if not require_jwt(handler, ["audit"], "view_escalation"): return
+    handler.serve_file("runtime/escalation/escalation.json")
+
