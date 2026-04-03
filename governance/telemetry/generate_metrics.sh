@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/bin/bash
 set -e
 
 LOG_DIR="runtime/logs"
