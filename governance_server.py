@@ -184,3 +184,42 @@ def log_event(msg):
             f.write(f"{int(time.time())} {msg}\n")
     except Exception:
         pass
+
+# --- ROLE-BASED ACCESS CONTROL ---
+
+USER_ROLES = {
+    "admin": "audit",
+    "cto": "cto",
+    "cfo": "cfo"
+}
+
+def get_user_role(session_id):
+    user = sessions.get(session_id)
+    return USER_ROLES.get(user, None)
+
+def require_role(handler, allowed_roles):
+    session_id = handler.get_cookie("session_id")
+    role = get_user_role(session_id)
+
+    if role not in allowed_roles:
+        handler.send_response(403)
+        handler.end_headers()
+        handler.wfile.write(b"Forbidden: insufficient role")
+        return False
+    return True
+
+
+# --- PROTECTED ROUTES EXAMPLE ---
+
+def handle_metrics(handler):
+    if not require_role(handler, ["cfo","audit","cto"]): return
+    handler.serve_file("telemetry/metrics.log")
+
+def handle_logs(handler):
+    if not require_role(handler, ["cto","audit"]): return
+    handler.serve_file("runtime/logs/auth.log")
+
+def handle_escalation(handler):
+    if not require_role(handler, ["audit"]): return
+    handler.serve_file("runtime/escalation/escalation.json")
+
