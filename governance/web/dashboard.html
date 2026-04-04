@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HHI Governance Dashboard</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h1 { margin-bottom: 0; }
+    .section { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>HHI Governance Dashboard</h1>
+  <p id="timestamp"></p>
+
+  <div class="section">
+    <h2>Health</h2>
+    <pre id="health"></pre>
+  </div>
+
+  <div class="section">
+    <h2>Drift (last 20 lines)</h2>
+    <pre id="drift"></pre>
+  </div>
+
+  <div class="section">
+    <h2>Escalation (last 20 lines)</h2>
+    <pre id="escalation"></pre>
+  </div>
+
+  <div class="section">
+    <h2>Assurance (last 20 lines)</h2>
+    <pre id="assurance"></pre>
+  </div>
+
+  <script>
+    async function loadData() {
+      document.getElementById('timestamp').textContent = new Date().toString();
+
+      try {
+        const healthResp = await fetch('../health/health_score.json');
+        if (healthResp.ok) {
+          const healthJson = await healthResp.json();
+          document.getElementById('health').textContent = JSON.stringify(healthJson, null, 2);
+        } else {
+          document.getElementById('health').textContent = 'No health_score.json available.';
+        }
+      } catch (e) {
+        document.getElementById('health').textContent = 'Error loading health.';
+      }
+
+      const loadText = async (path, elemId) => {
+        try {
+          const resp = await fetch(path);
+          if (resp.ok) {
+            const text = await resp.text();
+            document.getElementById(elemId).textContent = text;
+          } else {
+            document.getElementById(elemId).textContent = 'No data.';
+          }
+        } catch (e) {
+          document.getElementById(elemId).textContent = 'Error loading data.';
+        }
+      };
+
+      await loadText('../../runtime/evidence/drift.log', 'drift');
+      await loadText('../../runtime/evidence/escalation.log', 'escalation');
+      await loadText('../../runtime/evidence/assurance.log', 'assurance');
+    }
+
+    loadData();
+    setInterval(loadData, 30000);
+  </script>
+</body>
+</html>

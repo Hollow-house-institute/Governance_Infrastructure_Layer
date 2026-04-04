@@ -1,0 +1,7 @@
+{
+  "status": "active",
+  "health_source": "/governance/dashboard.html",
+  "drift": "/runtime/drift/drift.json",
+  "escalation": "/runtime/escalation/escalation.json",
+  "audit": "/audits/latest.txt"
+}

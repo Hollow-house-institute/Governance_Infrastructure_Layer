@@ -1,0 +1,10 @@
+{
+  "amy": {
+    "password_hash": "a615a46a9f52e117dffce7d7235b464a910f74508dfb51a27ce8c63d0413d9a0",
+    "role": "admin"
+  },
+  "viewer": {
+    "password_hash": "656d604dfdba41a262963cce53699bbc56cd7a2c0da1ad5ead45fc49214159d6",
+    "role": "viewer"
+  }
+}

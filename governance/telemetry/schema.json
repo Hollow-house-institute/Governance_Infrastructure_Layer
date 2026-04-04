@@ -1,0 +1,8 @@
+{
+  "timestamp": "ISO8601",
+  "drift_count": 0,
+  "escalation_count": 0,
+  "assurance_cycles": 0,
+  "health_score": 100,
+  "status": "OK"
+}

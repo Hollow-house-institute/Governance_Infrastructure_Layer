@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HHI Governance Engine</title>
+
+<style>
+body {
+  margin:0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background:#0f172a;
+  color:#e2e8f0;
+}
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.hero {
+  text-align:center;
+  padding:80px 20px;
+}
+
+.hero h1 {
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.hero p {
+  font-size:18px;
+  color:#94a3b8;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap:20px;
+  margin-top:40px;
+}
+
+.card {
+  background:rgba(30,41,59,0.8);
+  backdrop-filter: blur(10px);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card h3 {
+  margin-top:0;
+}
+
+.metric {
+  font-size:14px;
+  color:#94a3b8;
+}
+
+pre {
+  white-space:pre-wrap;
+  font-size:12px;
+}
+
+.status {
+  font-weight:bold;
+  font-size:16px;
+}
+
+.button {
+  margin-top:20px;
+  padding:12px 20px;
+  border:none;
+  border-radius:8px;
+  background:#38bdf8;
+  color:#0f172a;
+  cursor:pointer;
+}
+
+.footer {
+  text-align:center;
+  margin-top:60px;
+  color:#64748b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="hero">
+<h1>HHI Governance Engine</h1>
+<p>Execution-Time Governance for AI Systems</p>
+<p class="metric">Behavior → Telemetry → Threshold → Enforcement → Audit Trace</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>System Status</h3>
+<div id="status" class="status">Loading...</div>
+</div>
+
+<div class="card">
+<h3>Governance Telemetry</h3>
+<pre id="metrics">Loading...</pre>
+</div>
+
+<div class="card">
+<h3>Interaction Trace</h3>
+<pre id="trace">Loading...</pre>
+</div>
+
+</div>
+
+<div style="text-align:center;">
+<button class="button" onclick="refresh()">Refresh</button>
+</div>
+
+<div class="footer">
+<p>HHI Governance Engine • Execution-Time Governance • Continuous Assurance</p>
+</div>
+
+</div>
+
+<script>
+async function refresh(){
+  const metrics = await fetch('telemetry/metrics.log')
+    .then(r=>r.text())
+    .catch(()=> "No metrics");
+
+  const trace = await fetch('runtime/logs/auth.log')
+    .then(r=>r.text())
+    .catch(()=> "No logs");
+
+  document.getElementById('metrics').innerText = metrics;
+  document.getElementById('trace').innerText = trace;
+
+  if(metrics.includes("CRITICAL")){
+    document.getElementById('status').innerText = "CRITICAL";
+    document.getElementById('status').style.color = "#ef4444";
+  } else if(metrics.includes("WARNING")){
+    document.getElementById('status').innerText = "WARNING";
+    document.getElementById('status').style.color = "#f59e0b";
+  } else {
+    document.getElementById('status').innerText = "STABLE";
+    document.getElementById('status').style.color = "#22c55e";
+  }
+}
+
+refresh();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+flowchart TD
+  RUNTIME[Runtime Surfaces] --> DRIFT[Drift Detection]
+  RUNTIME --> ESC[Escalation Integrity]
+  RUNTIME --> ASSUR[Assurance Evidence]
+  DRIFT --> REPORTS[Governance Reports]
+  ESC --> REPORTS
+  ASSUR --> REPORTS
+
+  RUNTIME --> DASH[Dashboard Generator]
+  DASH --> WEB[Web Dashboard]
+
+  HEALTH[Health Engine] --> DASH
+  HEALTH --> API[API State JSON]
+
+  CLI[HHI CLI] --> DRIFT
+  CLI --> ESC
+  CLI --> REPORTS
+  CLI --> DASH
