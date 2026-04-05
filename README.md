@@ -1,3 +1,7 @@
+![Node](https://img.shields.io/badge/node-%3E=18-green)
+![Status](https://img.shields.io/badge/status-active-blue)
+![Type](https://img.shields.io/badge/type-governance--engine-black)
+
 # Governance Infrastructure Layer
 
 > A system that decides whether execution should continue.
@@ -27,6 +31,17 @@ POST /drift
 
 When drift crosses a threshold, the system can signal execution to stop.
 
+## Live Demo
+
+Run locally:
+
+node index.js
+
+Then:
+
+curl -X POST http://localhost:3000/drift \
+-H "Content-Type: application/json" \
+-d '{"count":3}'
 ---
 
 ## How It Works
