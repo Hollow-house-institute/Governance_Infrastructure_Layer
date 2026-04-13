@@ -1,68 +1,76 @@
-# Start Here
+# START HERE
 
 ## What this is
 
-This system is a Governance Infrastructure Layer built for Execution-Time Governance.
+This is a Governance Infrastructure Layer enforcing Execution-Time Governance.
 
-It does not just observe behavior.
-It evaluates behavior during execution, enforces Decision Boundary conditions, triggers Stop Authority, persists Escalation, and restores access only after state change and resolution.
+It detects Behavioral Drift, evaluates Decision Boundary conditions, triggers Escalation, enforces Stop Authority, records Governance Telemetry, preserves Interaction Trace, and binds Longitudinal Accountability.
 
-## Core operating conditions
+## What happens in this system
 
-- Time turns behavior into infrastructure
-- Behavior is the most honest data there is
+### Detection
+Behavioral Drift is measured from runtime signals.
 
-## What the system does
+### Evaluation
+Decision Boundary determines if execution continues.
 
-1. Detects Behavioral Drift
-2. Evaluates against Decision Boundary thresholds
-3. Triggers Escalation when Intervention Threshold is met
-4. Enforces Stop Authority when execution must halt
-5. Records Governance Telemetry and Interaction Trace
-6. Preserves Longitudinal Accountability through logged resolution
+### Escalation
+If Intervention Threshold is crossed:
+Escalation becomes active and non-optional.
 
-## Why it matters
+### Enforcement
+If severity is critical:
+Stop Authority halts execution.
 
-This is Governance as Infrastructure.
+### Accountability
+Execution cannot resume until:
+- accountable actor is recorded
+- resolution is validated
 
-The system prevents:
-- Governance Drift
-- Authority Drift
-- Escalation Suppression
-- Accountability Diffusion
-- Governance Illusion
+### Evidence
 
-## Who it is for
+The system produces:
+- escalation.json
+- STOP artifact
+- telemetry logs
+- Interaction Trace
 
-- CTO
-- Risk
-- Legal
-- Audit
-- CFO
+## Why this matters
 
-## Product modules
+Without enforcement:
+- Governance Drift accumulates
+- Escalation Suppression occurs
+- Accountability Diffusion spreads
+- Longitudinal Risk compounds
 
-- Runtime Enforcement Layer
-- Governance Telemetry Layer
-- Interaction Trace Layer
-- Decision Boundary Control Layer
-- Stop Authority Control
-- Resolution and Accountability Layer
+## Buyer impact
 
-## Start here path
+### CTO
+Control layer between model and execution
 
-1. Read `docs/diagrams/SYSTEM_MAP.md`
-2. Read `docs/instructions/OPERATOR_QUICKSTART.md`
-3. Read `docs/instructions/MARKET_NARRATIVE.md`
-4. Read `README.md`
+### Risk
+Early detection of Longitudinal Risk
 
-## Buyer-level summary
+### Legal
+Evidence of intervention and resolution
 
-This product turns governance from policy language into execution control.
+### Audit
+Traceable execution history
 
-It answers:
-- What behavior is happening
-- What threshold was crossed
-- What was blocked
-- Who resolved it
-- What evidence exists over time
+### CFO
+Reduction in repeated operational failure cost
+
+## Read next
+
+1. docs/diagrams/SYSTEM_MAP.md
+2. docs/instructions/OPERATOR_QUICKSTART.md
+3. docs/instructions/MARKET_NARRATIVE.md
+4. README.md
+
+## Final state
+
+Governance as Infrastructure
+
+This system does not describe governance
+
+It enforces it

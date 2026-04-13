@@ -1,0 +1,30 @@
+Subject: Execution-Time Governance (not monitoring)
+
+I built a system that enforces governance during execution.
+
+When behavior crosses a Decision Boundary, it:
+- triggers Escalation
+- enforces Stop Authority
+- blocks execution
+- requires resolution before access is restored
+
+This is not alerting or dashboards.
+
+It is a Governance Infrastructure Layer.
+
+It directly addresses:
+- Longitudinal Risk
+- uncontrolled execution
+- weak enforcement of policy
+- lack of audit-ready evidence
+
+I can show it in 5 minutes:
+- normal system
+- trigger Behavioral Drift
+- system blocks execution
+- resolution restores access
+- Interaction Trace proves it
+
+If this maps to your environment, I can walk you through it live.
+
+– Hollow House Institute

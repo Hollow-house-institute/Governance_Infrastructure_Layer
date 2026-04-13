@@ -27,8 +27,11 @@ SESSION_TTL = 1800
 def hash_pw(pw):
     return hashlib.sha256(pw.encode()).hexdigest()
 
-with open("users.json") as f:
-    USERS = json.load(f)
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(BASE_DIR, "users.json")) as f:
 
 def create_session(user):
     sid = str(uuid.uuid4())

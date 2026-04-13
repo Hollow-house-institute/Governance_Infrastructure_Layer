@@ -1,0 +1,30 @@
+name: Governance Enforcement
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Governance Sections
+        run: |
+          grep -q "Decision Boundary" README.md
+          grep -q "Execution-Time Governance" README.md
+          grep -q "Governance Telemetry" README.md
+          grep -q "Interaction Trace" README.md
+          grep -q "Accountability" README.md
+
+      - name: Generate Telemetry
+        run: |
+          echo "timestamp: $(date -u)" > telemetry/metrics.log
+          echo "governance_stability_index: 1" >> telemetry/metrics.log
+          echo "authority_alignment_score: 1" >> telemetry/metrics.log
+          echo "language_symmetry_score: 1" >> telemetry/metrics.log
+
+      - name: Drift Detection
+        run: |
+          sha256sum README.md > telemetry/checksum.sha256

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Governance Infrastructure Layer</title>
+  <style>
+    body { font-family: Arial; background: #020617; color: white; padding: 20px; }
+    .card { background: #0f172a; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+    button { padding: 12px; margin: 5px; border-radius: 8px; border: none; cursor: pointer; }
+    .safe { background: #16a34a; }
+    .warn { background: #f59e0b; }
+    .danger { background: #dc2626; }
+    .stop { background: #7f1d1d; border: 2px solid red; }
+  </style>
+</head>
+<body>
+
+<h1>Governance Infrastructure Layer</h1>
+
+<div class="card">
+  <button class="safe" onclick="setDrift(0)">STABLE</button>
+  <button class="warn" onclick="setDrift(2)">MEDIUM</button>
+  <button class="danger" onclick="setDrift(3)">CRITICAL</button>
+</div>
+
+<div class="card" id="statusBox">
+  <h2>Status</h2>
+  <pre id="status"></pre>
+</div>
+
+<div class="card">
+  <h2>Scoring Model</h2>
+  <pre id="scores"></pre>
+</div>
+
+<script>
+async function setDrift(val) {
+  await fetch("/drift", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({count: val})
+  });
+  load();
+}
+
+async function load() {
+  const res = await fetch("/api");
+  const data = await res.json();
+
+  document.getElementById("status").innerText =
+    JSON.stringify(data, null, 2);
+
+  document.getElementById("scores").innerText =
+    JSON.stringify(data.scores, null, 2);
+
+  const box = document.getElementById("statusBox");
+  box.className = data.stop_authority ? "card stop" : "card";
+}
+
+setInterval(load, 1500);
+load();
+</script>
+
+</body>
+</html>
