@@ -278,3 +278,8 @@ This is enforcement
 This is Execution-Time Governance  
 This is Governance as Infrastructure
 7466291 (fix: stabilize workflows + checksum exclusions)
+
+## Enforcement Statement
+
+Authority is enforced through explicit Decision Boundaries, escalation thresholds, and Stop Authority conditions.
+
