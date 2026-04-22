@@ -1,285 +1,80 @@
-![Node](https://img.shields.io/badge/node-%3E=18-green)
-![Status](https://img.shields.io/badge/status-active-blue)
-![Type](https://img.shields.io/badge/type-governance--engine-black)
-
 # Governance Infrastructure Layer
 
-> A system that decides whether execution should continue.
+## Purpose
 
----
+Execution-time governance layer with telemetry, audit controls, maturity model, and enterprise-ready governance architecture. Prevents Behavioral Drift, Governance Drift, Decision Substitution, and Escalation Decay through Continuous Assurance and Longitudinal Accountability.
 
-## What This Is
+## Governance Layer
+
+Governance (HHI_GOV_01 aligned)
+
+## What This System Does
 
 A real-time governance system that converts behavioral input into enforceable control decisions.
 
-This is not monitoring.  
-This is control.
+### Detection
+- Behavioral Drift is measured from runtime signals
 
----
+### Evaluation
+- Decision Boundary determines whether execution continues
 
-## Example
+### Escalation
+- If Intervention Threshold is crossed, Escalation becomes active and non-optional
 
-**Input**
-POST /drift  
-{ "count": 3 }
+### Enforcement
+- If severity is critical, Stop Authority halts execution
 
-**Output**
-{
-  "severity_label": "CRITICAL",
-  "stop_authority": true
-}
+### Accountability
+- Execution resumes only after accountable actor is recorded and resolution is validated
 
-When drift crosses a threshold, the system can signal execution to stop.
+## Core Principle
 
-## Live Demo
+**Time turns behavior into infrastructure.**  
+**Behavior is the most honest data there is.**
 
-Run locally:
+This is not monitoring. This is control. This is Execution-Time Governance. This is Governance as Infrastructure.
 
-node index.js
+## Authority & Canonical References
 
-Then:
+Canonical Source:
+https://github.com/Hollow-house-institute/Hollow_House_Standards_Library
 
-curl -X POST http://localhost:3000/drift \
--H "Content-Type: application/json" \
--d '{"count":3}'
----
+Governance Standard:
+https://github.com/Hollow-house-institute/HHI_GOV_01
 
-## How It Works
+SYSTEM MAP:
+https://github.com/Hollow-house-institute/HHI_GOV_01/blob/main/SYSTEM_MAP.md
 
-Behavior → Evaluation → Severity → Control Decision → Enforcement
+DOI:
+https://doi.org/10.5281/zenodo.18615600
 
----
+ORCID:
+https://orcid.org/0009-0009-4806-1949
 
-## Quick Start
+<!-- HHI_AUTHORITY_BLOCK_START -->
+## Authority & Canonical References
 
-### Start the Engine
+Canonical Source: https://github.com/Hollow-house-institute/Hollow_House_Standards_Library
 
-```bash
-node index.js
-```bash
-npm install
-node index.js
+Governance Standard: https://github.com/Hollow-house-institute/HHI_GOV_01
 
-## Execution-Time Governance that enforces control
+SYSTEM MAP: https://github.com/Hollow-house-institute/HHI_GOV_01/blob/main/SYSTEM_MAP.md
 
-This system enforces Governance as Infrastructure.
+DOI: https://doi.org/10.5281/zenodo.18615600
 
-It detects Behavioral Drift, evaluates Decision Boundary conditions, triggers Escalation, enforces Stop Authority, records Governance Telemetry, preserves Interaction Trace, and binds Longitudinal Accountability.
+ORCID: https://orcid.org/0009-0009-4806-1949
 
----
+Glossary Version: v1.3.0
+<!-- HHI_AUTHORITY_BLOCK_END -->
 
-# What this system does
+## License
 
-## Detection
-Behavioral Drift is measured from runtime signals.
+This repository is governed under the Hollow House Institute Master License Suite (HHI-MLS).
 
-## Evaluation
-Decision Boundary determines whether execution continues.
+https://github.com/Hollow-house-institute/Master_License_Suite
 
-## Escalation
-If Intervention Threshold is crossed:
-Escalation becomes active and non-optional.
-
-## Enforcement
-If severity is critical:
-Stop Authority halts execution.
-
-## Accountability
-Execution resumes only after:
-- accountable actor is recorded
-- resolution is validated
-
----
-
-# What gets detected
-
-- Behavioral Drift from runtime input
-
-# What gets blocked
-
-- execution past Decision Boundary when severity is critical
-
-# What evidence is generated
-
-- escalation.json
-- STOP artifact
-- telemetry logs
-- Interaction Trace
-
-# Who resolves it
-
-- explicitly accountable actor
-- resolution recorded and validated
-
-# How this reduces Longitudinal Risk
-
-Prevents accumulation of unresolved Behavioral Drift across time.
-
----
-
-# Architecture
-
-## Governance Infrastructure Layer
-
-- Runtime Enforcement Layer
-- Decision Boundary Control Layer
-- Escalation Layer
-- Stop Authority Control
-- Governance Telemetry Layer
-- Interaction Trace Layer
-- Accountability and Resolution Layer
-
-## Flow
-
-Input → Behavioral Drift → Decision Boundary → Escalation → Stop Authority → Resolution → Restoration → Longitudinal Evidence
-
----
-
-# Proof Flow
-
-## Step 1 — Trigger drift
-
-echo '{"count": 3}' > drift.json
-
-## Step 2 — Run enforcement
-
-python runtime/enforce.py
-
-## Step 3 — Evaluate system state
-
-cat escalation.json
-
-## Step 4 — Confirm Stop Authority
-
-test -f STOP && echo "STOP AUTHORITY ENFORCED"
-
----
-
-# Operator Path
-
-1. Provide runtime signal
-2. Execute enforcement
-3. Evaluate Decision Boundary
-4. Observe Escalation state
-5. Enforce Stop Authority if triggered
-6. Record accountable resolution
-7. Restore execution after validation
-
----
-
-# Evidence Surfaces
-
-## Governance Telemetry
-- drift_count
-- severity_level
-- escalation_active
-- stop_authority_state
-- timestamp
-
-## Interaction Trace
-- input state
-- evaluation
-- decision
-- escalation
-- enforcement
-- resolution
-
-## Accountability
-- actor
-- action
-- timestamp
-- outcome
-
----
-
-# Deployment Path
-
-## Local
-- Termux or Linux environment
-- Python runtime
-- JSON-based telemetry
-
-## Integration
-- API layer
-- event stream ingestion
-- audit pipeline connection
-
-## Enterprise
-- attach to AI systems
-- attach to workflow systems
-- attach to decision engines
-
----
-
-# Commercial Packaging
-
-## Product Form
-
-- Governance Enforcement Engine
-- Audit Evidence Layer
-- Telemetry and Trace System
-- Decision Control Layer
-
-## Use Cases
-
-- AI system governance
-- operational workflow control
-- compliance enforcement
-- audit evidence generation
-
-## Buyer Roles
-
-### CTO
-Runtime control layer
-
-### Risk
-Longitudinal Risk visibility
-
-### Legal
-Defensible intervention records
-
-### Audit
-Full Interaction Trace
-
-### CFO
-Reduction in repeated governance failure cost
-
----
-
-# Control Rules
-
-- Escalation is non-optional when threshold is met
-- Stop Authority cannot be bypassed
-- Decision Boundary must be evaluated on every execution
-- Accountability must be bound to every resolution
-- Interaction Trace must be complete
-- Governance Telemetry must be continuous
-
-Failure to enforce = Governance Failure
-
----
-
-# Read next
-
-- docs/START_HERE.md
-- docs/diagrams/SYSTEM_MAP.md
-- docs/instructions/OPERATOR_QUICKSTART.md
-- docs/instructions/MARKET_NARRATIVE.md
-
----
-
-# Position
-
-This is not monitoring  
-This is not reporting  
-
-This is enforcement  
-
-This is Execution-Time Governance  
-This is Governance as Infrastructure
-7466291 (fix: stabilize workflows + checksum exclusions)
+No rights are granted beyond those explicitly defined.
 
 ## Enforcement Statement
 
 Authority is enforced through explicit Decision Boundaries, escalation thresholds, and Stop Authority conditions.
-
